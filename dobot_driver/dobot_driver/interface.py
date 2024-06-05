@@ -1,13 +1,12 @@
 import serial
-import threading
+from multiprocessing import Lock, Manager
 import sys
 
 from dobot_driver.message import Message
 
 class Interface:
-    def __init__(self, port):
-        threading.Thread.__init__(self)
-        self.lock = threading.Lock()
+    def __init__(self, port, lock):
+        self.lock = lock
 
         try:
             self.serial = serial.Serial(
